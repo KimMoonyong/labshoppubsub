@@ -69,8 +69,8 @@
                     { text: "id", value: "id" },
                     { text: "productId", value: "productId" },
                     { text: "qty", value: "qty" },
-                    { text: "customerId", value: "customerId" },
                     { text: "amount", value: "amount" },
+                    { text: "customerId", value: "customerId" },
                 ],
             order : [],
             newValue: {},
@@ -88,10 +88,10 @@
             this.values = temp.data._embedded.orders;
 
             this.newValue = {
-                'productId': '',
+                'productId': 0,
                 'qty': 0,
-                'customerId': '',
                 'amount': 0,
+                'customerId': '',
             }
         },
         methods: {

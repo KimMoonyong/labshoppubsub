@@ -21,10 +21,10 @@
                                 Qty :  {{item.qty }}
                             </v-list-item-subtitle>
                             <v-list-item-subtitle>
-                                CustomerId :  {{item.customerId }}
+                                Amount :  {{item.amount }}
                             </v-list-item-subtitle>
                             <v-list-item-subtitle>
-                                Amount :  {{item.amount }}
+                                CustomerId :  {{item.customerId }}
                             </v-list-item-subtitle>
                         </v-list-item-content>
 

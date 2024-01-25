@@ -3,46 +3,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order
-  labels:
-    app: order
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: order
-  template:
-    metadata:
-      labels:
-        app: order
-    spec:
-      containers:
-        - name: order
-          image: username/order:latest
-          ports:
-            - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: '/actuator/health'
-              port: 8080
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-            periodSeconds: 5
-            failureThreshold: 10
-          livenessProbe:
-            httpGet:
-              path: '/actuator/health'
-              port: 8080
-            initialDelaySeconds: 120
-            timeoutSeconds: 2
-            periodSeconds: 5
-            failureThreshold: 5
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: inventory
   labels:
     app: inventory
@@ -83,22 +43,62 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: delivery
+  name: Order
   labels:
-    app: delivery
+    app: Order
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: delivery
+      app: Order
   template:
     metadata:
       labels:
-        app: delivery
+        app: Order
     spec:
       containers:
-        - name: delivery
-          image: username/delivery:latest
+        - name: Order
+          image: username/Order:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Delivery
+  labels:
+    app: Delivery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: Delivery
+  template:
+    metadata:
+      labels:
+        app: Delivery
+    spec:
+      containers:
+        - name: Delivery
+          image: username/Delivery:latest
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -125,23 +125,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: order
-  labels:
-    app: order
-spec:
-  ports:
-    - port: 8080
-      targetPort: 8080
-  selector:
-    app: order
-
-
----
-
-
-apiVersion: v1
-kind: Service
-metadata:
   name: inventory
   labels:
     app: inventory
@@ -159,13 +142,30 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: delivery
+  name: Order
   labels:
-    app: delivery
+    app: Order
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: delivery
+    app: Order
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: Delivery
+  labels:
+    app: Delivery
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: Delivery
 
